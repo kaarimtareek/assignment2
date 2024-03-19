@@ -1,0 +1,41 @@
+.passHov
+{
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+  color: #212529;
+}
+
+.passHov:hover
+{
+  color: #4fa74f;
+}
+
+.pointer
+{
+  cursor: pointer;
+}
+
+.product{
+  transform: translate(0);
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+}
+.product:hover
+{
+
+  box-shadow: 3px 3px  10px 2px #0359214b  ;
+  transform: translateZ(20px);
+}
+.navbar{
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+
+}
+a{
+
+  text-decoration: none !important;
+  color: black !important;
+
+ }
+
