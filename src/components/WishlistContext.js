@@ -1,89 +1,112 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-
+import { API_BASE_URL } from "../config";
+import { toast } from "react-hot-toast";
 
 export const wishlistContext = createContext();
 
 export function WishlistContextProvider({ children }) {
+    const [wishlistProducts, setWishlistProducts] = useState([]);
+    const token = localStorage.getItem("tkn");
 
-    const [wishlistProducts, setWishlistProducts] = useState(null);
-
-
-    async function addProductToWishlist(productId) {
-
+    async function getProductsByIds(productIds) {
         try {
-            const { data } = await axios.post('https://ecommerce.routemisr.com/api/v1/wishlist',
-                { 'productId': productId },
+            const { data } = await axios.get(
+                `${API_BASE_URL}/product/products/list/?${productIds
+                    .map((id) => `productIds=${id}`)
+                    .join("&")}`,
                 {
-                    headers: { token: localStorage.getItem('tkn') }
-                });
-
-                getUserWishlist();
-
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("tkn"),
+                    },
+                }
+            );
 
             return data;
+        } catch (e) {
+            console.log("error", e);
         }
-        catch (e) {
-
-            console.log('error', e);
-
-        }
-    };
-
-    async function getUserWishlist() {
+    }
+    async function addProductToWishlist(productId) {
+        debugger;
         try {
-            const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/wishlist', {
-                headers: {
-                    token: localStorage.getItem('tkn')
+            const { data } = await axios.patch(
+                `${API_BASE_URL}/user/addToWishList/${productId}`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
+            );
+
+            toast.success("product was added to wishlist", {
+                position: "top-right",
             });
-
-            setWishlistProducts(data.data);
-
             getUserWishlist();
 
-
             return data;
-
-
-        }
-        catch (e) {
-
-            console.log('error', e);
-
-        }
-    };
-
-    async function deleteWishlistItem(productId) {
-
-        try {
-            const { data } = await axios.delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`, {
-                headers: { token: localStorage.getItem('tkn') }
-            });
-
-            setWishlistProducts(data.data);
-
-
-
-
-            return data;
-
         } catch (e) {
-
-            console.log('error', e);
-
+            console.log("error", e);
+            toast.error("error occured");
         }
     }
 
-    
+    async function getUserWishlist() {
+        debugger;
+        try {
+            const { data } = await axios.get(
+                `${API_BASE_URL}/user/WishList/get`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            const { products } = await getProductsByIds(data.wishList);
+            setWishlistProducts(products);
+
+            return data;
+        } catch (e) {
+            console.log("error", e);
+        }
+    }
+
+    async function deleteWishlistItem(productId) {
+        try {
+            const { data } = await axios.patch(
+                `${API_BASE_URL}/user/removeFromWishList/${productId}`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            await getUserWishlist();
+
+            return data;
+        } catch (e) {
+            console.log("error", e);
+        }
+    }
 
     useEffect(function () {
         getUserWishlist();
     }, []);
 
-    return <wishlistContext.Provider value={{ getUserWishlist,  addProductToWishlist, deleteWishlistItem, wishlistProducts }}>
-
-        {children}
-
-    </wishlistContext.Provider>
+    return (
+        <wishlistContext.Provider
+            value={{
+                getUserWishlist,
+                addProductToWishlist,
+                deleteWishlistItem,
+                wishlistProducts,
+            }}
+        >
+            {children}
+        </wishlistContext.Provider>
+    );
 }

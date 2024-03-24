@@ -2,26 +2,35 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { ColorRing } from "react-loader-spinner";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { cartContext } from "./CartContext";
 import { wishlistContext } from "./WishlistContext";
 import { API_BASE_URL } from "../config";
-export function Products() {
+export function ProductsByBrand() {
     const { addProductToCart } = useContext(cartContext);
     const { addProductToWishlist } = useContext(wishlistContext);
 
+    const { id } = useParams();
+
     async function addProduct(id) {
         const res = await addProductToCart(id);
-        if ((res.message = "Done")) {
-            toast.success("product was added to cart");
-        } else {
-            toast.error("error occured");
+
+        if (res.status === "success") {
+            toast.success(res.message, {
+                position: "top-right",
+            });
         }
     }
 
     async function wishProduct(id) {
         const res = await addProductToWishlist(id);
+
+        if (res.status === "success") {
+            toast.success(res.message, {
+                position: "top-right",
+            });
+        }
     }
 
     function getAllProducts() {
@@ -53,16 +62,20 @@ export function Products() {
     }
 
     let products = data.data.products;
-    // products = products.filter(
-    //     (product) =>
-    //         product.categoryId.id === "65d0a284a2bcca8d1b12747a"
-    // );
-    // console.log(products);
+    products = products?.filter((product) => product.brandId?._id === id);
+    console.log(products);
 
     return (
         <>
             <div className="container py-5">
-                <div className="row gy-4 mt-5">
+                <div className="row gy-4">
+                    <input
+                        type="text"
+                        id="search"
+                        className="form-control mt-5"
+                        placeholder="search"
+                    />
+
                     {products?.map((product) => {
                         return (
                             <div key={product._id} className="col-md-3">
@@ -73,7 +86,7 @@ export function Products() {
                                         <img
                                             src={product.mainImage.secure_url}
                                             className="w-100"
-                                            alt={""}
+                                            alt={product.name}
                                         />
                                         <h6 className="text-success">
                                             Category: {product.categoryId?.name}
