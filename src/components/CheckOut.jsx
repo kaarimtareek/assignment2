@@ -1,126 +1,172 @@
-import React, { useContext, useState } from 'react'
-import { useFormik } from 'formik'
-import  axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { cartContext } from './CartContext';
-import toast from 'react-hot-toast';
-
-
+import React, { useContext, useState } from "react";
+import { useFormik } from "formik";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { cartContext } from "./CartContext";
+import toast from "react-hot-toast";
+import { API_BASE_URL } from "../config";
 
 export function CheckOut() {
-    
-
-
-    const {cartId, getUserCart, setCartProducts, setTotalCartPrice, setNumOfCartItems} = useContext(cartContext)
-    const [errMsg, setErrMsg] = useState(null); 
+    const {
+        cartId,
+        getUserCart,
+        setCartProducts,
+        setTotalCartPrice,
+        setNumOfCartItems,
+        clearCart,
+    } = useContext(cartContext);
+    const [errMsg, setErrMsg] = useState(null);
     const [successMsg, setsuccessMsg] = useState(null);
     const navigate = useNavigate();
-    const shippingAddress = {
-        "shippingAddress":{
-            details : "",
-            phone: "",
-            city: "",
-        }}
 
-    async function confirmPayment(values){
-        console.log('submit',values);
+    async function confirmPayment(values) {
+        console.log("submit", values);
 
-        try{
-            const {data} = await axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}` , values,
-            {
-                headers: {token: localStorage.getItem('tkn')},
-                params: {url: "http://localhost:3000"}
-            })
+        try {
+            const cartData = await getUserCart();
+            const products = cartData.cart.products.map((p) => {
+                return { productId: p.productId, quantity: p.quantity };
+            });
+            const token = localStorage.getItem("tkn");
 
-
-            if(data.status === "success") {
-
-                toast.success('order placed successfully')
-
-                  setCartProducts([]); 
-                  setTotalCartPrice(0);
-                  setNumOfCartItems(0);
-                  getUserCart();
-                 
+            values = { ...values, products };
+            const phone = values.phone;
+            values.phone = [phone];
+            if (values.couponName === null || values.couponName === "") {
+                delete values.couponName;
             }
+            console.log(values);
+            debugger;
+            const { data } = await axios.post(`${API_BASE_URL}/order`, values, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
 
-            window.open(data.session.url, "_self");
+            if (data.message === "Done") {
+                toast.success("order placed successfully");
 
-        }
-        catch(err){
-            console.log('error' , err);
-            
+                await clearCart();
+
+                window.open(data.session.url, "_self");
+            }
+        } catch (err) {
+            toast.error(err.response.data.globalMessage);
+            console.log("error", err);
         }
     }
 
-   const formikObj = useFormik({
-
-        initialValues : shippingAddress,
+    const formikObj = useFormik({
+        initialValues: { paymentTypes: "card" },
 
         onSubmit: confirmPayment,
 
-        validate: function(values){
-
+        validate: function (values) {
             setErrMsg(null);
 
-            const errors ={};
+            const errors = {};
 
-            if (values && values.city && values.city.length < 3) {
-
-                errors.city = "city must be at least 3 letters"
-                
+            if (values && values.address && values.address.length < 20) {
+                errors.address = "address must be at least 20 letters";
             }
 
-            if (values && values.phone && !values.phone.match(/^(02)?01[0125][0-9]{8}$/)) {
-                errors.phone ='phone not valid'
+            if (
+                values &&
+                values.phone &&
+                !values.phone.match(/^(02)?01[0125][0-9]{8}$/)
+            ) {
+                errors.phone = "phone not valid";
             }
 
-            if (values && values.details && values.details.length < 3) {
-
-                errors.details = "Details must be at least 3 letters"
-                
-            }
-
-            
             return errors;
-
-
-        }
-            
+        },
     });
-
 
     return (
         <>
-       <div className="container pt-5">
+            <div className="container pt-5">
+                {errMsg ? (
+                    <div className="alert alert-danger">{errMsg}</div>
+                ) : (
+                    ""
+                )}
+                {successMsg ? (
+                    <div className="alert alert-success">{successMsg}</div>
+                ) : (
+                    ""
+                )}
 
+                <h1 className="pt-5">Order Now</h1>
 
-            {errMsg? <div className="alert alert-danger">{errMsg}</div> :""}
-            {successMsg? <div className="alert alert-success">{successMsg}</div> :""}
+                <form onSubmit={formikObj.handleSubmit}>
+                    <label htmlFor="address" className="form-label">
+                        Address :
+                    </label>
+                    <input
+                        onBlur={formikObj.handleBlur}
+                        onChange={formikObj.handleChange}
+                        id="address"
+                        value={formikObj.values.address}
+                        className="form-control"
+                        type="text"
+                        aria-label="default input example"
+                    />
+                    {formikObj.errors.address && formikObj.touched.address ? (
+                        <div className="alert alert-danger">
+                            {formikObj.errors.address}
+                        </div>
+                    ) : (
+                        ""
+                    )}
 
-         <h1 className='pt-5'>Order Now</h1>
+                    <label htmlFor="phone" className="form-label">
+                        Phone :
+                    </label>
+                    <input
+                        onBlur={formikObj.handleBlur}
+                        onChange={formikObj.handleChange}
+                        id="phone"
+                        value={formikObj.values.phone}
+                        className="form-control"
+                        type="text"
+                        aria-label="default input example"
+                    />
+                    {formikObj.errors.phone && formikObj.touched.phone ? (
+                        <div className="alert alert-danger">
+                            {formikObj.errors.phone}
+                        </div>
+                    ) : (
+                        ""
+                    )}
 
-        <form onSubmit={formikObj.handleSubmit}>
-
-           <label htmlFor='city' className="form-label">City :</label>
-           <input onBlur={formikObj.handleBlur} onChange={formikObj.handleChange} id='city' value={formikObj.values.city} className="form-control" type="text" aria-label="default input example"/>
-           {formikObj.errors.city && formikObj.touched.city ? <div className="alert alert-danger">{formikObj.errors.city }</div> :""}
-
-          
-           <label htmlFor='phone' className="form-label">Phone :</label>
-           <input onBlur={formikObj.handleBlur} onChange={formikObj.handleChange} id='phone' value={formikObj.values.phone} className="form-control" type="text" aria-label="default input example"/>
-           {formikObj.errors.phone && formikObj.touched.phone? <div className="alert alert-danger">{formikObj.errors.phone }</div> :""}
-
-           <label htmlFor='details' className="form-label">Details :</label>
-           <input onBlur={formikObj.handleBlur} onChange={formikObj.handleChange} id='details' value={formikObj.values.details} className="form-control" type="text" aria-label="default input example"/>
-           {formikObj.errors.details && formikObj.touched.details ? <div className="alert alert-danger">{formikObj.errors.details }</div> :""}
-
-           <div onBlur={formikObj.handleBlur}    className='d-flex justify-content-end mt-3'>
-               <button type='submit' id='submit'  disabled={formikObj.isValid === false || formikObj.dirty === false} className='btn btn-outline-primary w-100'>pay Now</button>
-           </div>
-
-        </form>
-       </div>
+                    <label htmlFor="couponName" className="form-label">
+                        Coupon Name :
+                    </label>
+                    <input
+                        onBlur={formikObj.handleBlur}
+                        onChange={formikObj.handleChange}
+                        id="couponName"
+                        value={formikObj.values.couponName}
+                        className="form-control"
+                        type="text"
+                        aria-label="default input example"
+                    />
+                    <div
+                        onBlur={formikObj.handleBlur}
+                        className="d-flex justify-content-end mt-3"
+                    >
+                        <button
+                            type="submit"
+                            id="submit"
+                            disabled={
+                                formikObj.isValid === false ||
+                                formikObj.dirty === false
+                            }
+                            className="btn btn-outline-primary w-100"
+                        >
+                            Place Order
+                        </button>
+                    </div>
+                </form>
+            </div>
         </>
-    )
+    );
 }

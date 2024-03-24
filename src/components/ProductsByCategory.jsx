@@ -2,19 +2,21 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { ColorRing } from "react-loader-spinner";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { cartContext } from "./CartContext";
 import { wishlistContext } from "./WishlistContext";
 import { API_BASE_URL } from "../config";
-export function Products() {
+export function ProductsByCategory() {
     const { addProductToCart } = useContext(cartContext);
     const { addProductToWishlist } = useContext(wishlistContext);
+
+    const { id } = useParams();
 
     async function addProduct(id) {
         const res = await addProductToCart(id);
 
-        if (res.message === "Done") {
+        if (res.status === "success") {
             toast.success(res.message, {
                 position: "top-right",
             });
@@ -60,11 +62,8 @@ export function Products() {
     }
 
     let products = data.data.products;
-    // products = products.filter(
-    //     (product) =>
-    //         product.categoryId.id === "65d0a284a2bcca8d1b12747a"
-    // );
-    // console.log(products);
+    products = products.filter((product) => product.categoryId?._id === id);
+    console.log(products);
 
     return (
         <>
