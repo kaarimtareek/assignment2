@@ -21,6 +21,7 @@ import { SubCategories } from "./components/Subcategories";
 import { ProductsByCategory } from "./components/ProductsByCategory";
 import { ProductsBySubCategory } from "./components/ProductsBySubCategory";
 import { ProductsByBrand } from "./components/ProductsByBrand";
+import { Orders } from "./components/Orders";
 
 const router = createHashRouter([
     {
@@ -46,6 +47,7 @@ const router = createHashRouter([
                 element: <ProductsBySubCategory />,
             },
             { path: "productsByBrand/:id", element: <ProductsByBrand /> },
+            { path: "orders", element: <Orders /> },
 
             {
                 path: "*",

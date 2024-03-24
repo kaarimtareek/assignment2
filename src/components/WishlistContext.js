@@ -1,15 +1,34 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { API_BASE_URL } from "../config";
+import { toast } from "react-hot-toast";
 
 export const wishlistContext = createContext();
 
 export function WishlistContextProvider({ children }) {
-    const [wishlistProducts, setWishlistProducts] = useState(null);
+    const [wishlistProducts, setWishlistProducts] = useState([]);
     const token = localStorage.getItem("tkn");
 
+    async function getProductsByIds(productIds) {
+        try {
+            const { data } = await axios.get(
+                `${API_BASE_URL}/product/products/list/?${productIds
+                    .map((id) => `productIds=${id}`)
+                    .join("&")}`,
+                {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("tkn"),
+                    },
+                }
+            );
+
+            return data;
+        } catch (e) {
+            console.log("error", e);
+        }
+    }
     async function addProductToWishlist(productId) {
-        
+        debugger;
         try {
             const { data } = await axios.patch(
                 `${API_BASE_URL}/user/addToWishList/${productId}`,
@@ -21,28 +40,32 @@ export function WishlistContextProvider({ children }) {
                 }
             );
 
+            toast.success("product was added to wishlist", {
+                position: "top-right",
+            });
             getUserWishlist();
 
             return data;
         } catch (e) {
             console.log("error", e);
+            toast.error("error occured");
         }
     }
 
     async function getUserWishlist() {
+        debugger;
         try {
             const { data } = await axios.get(
-                "https://ecommerce.routemisr.com/api/v1/wishlist",
+                `${API_BASE_URL}/user/WishList/get`,
                 {
                     headers: {
-                        token: localStorage.getItem("tkn"),
+                        Authorization: `Bearer ${token}`,
                     },
                 }
             );
 
-            setWishlistProducts(data.data);
-
-            getUserWishlist();
+            const { products } = await getProductsByIds(data.wishList);
+            setWishlistProducts(products);
 
             return data;
         } catch (e) {
@@ -54,6 +77,7 @@ export function WishlistContextProvider({ children }) {
         try {
             const { data } = await axios.patch(
                 `${API_BASE_URL}/user/removeFromWishList/${productId}`,
+                {},
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -61,7 +85,7 @@ export function WishlistContextProvider({ children }) {
                 }
             );
 
-            setWishlistProducts(data.data);
+            await getUserWishlist();
 
             return data;
         } catch (e) {

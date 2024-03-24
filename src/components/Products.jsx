@@ -13,22 +13,15 @@ export function Products() {
 
     async function addProduct(id) {
         const res = await addProductToCart(id);
-
-        if (res.message === "Done") {
-            toast.success(res.message, {
-                position: "top-right",
-            });
+        if ((res.message = "Done")) {
+            toast.success("product was added to cart");
+        } else {
+            toast.error("error occured");
         }
     }
 
     async function wishProduct(id) {
         const res = await addProductToWishlist(id);
-
-        if (res.status === "success") {
-            toast.success(res.message, {
-                position: "top-right",
-            });
-        }
     }
 
     function getAllProducts() {
@@ -69,15 +62,8 @@ export function Products() {
     return (
         <>
             <div className="container py-5">
-                <div className="row gy-4">
-                    <input
-                        type="text"
-                        id="search"
-                        className="form-control mt-5"
-                        placeholder="search"
-                    />
-
-                    {products.map((product) => {
+                <div className="row gy-4 mt-5">
+                    {products?.map((product) => {
                         return (
                             <div key={product._id} className="col-md-3">
                                 <div className="product px-3">

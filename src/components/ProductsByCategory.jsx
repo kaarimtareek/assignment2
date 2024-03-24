@@ -62,7 +62,7 @@ export function ProductsByCategory() {
     }
 
     let products = data.data.products;
-    products = products.filter((product) => product.categoryId?._id === id);
+    products = products?.filter((product) => product.categoryId?._id === id);
     console.log(products);
 
     return (
@@ -76,7 +76,7 @@ export function ProductsByCategory() {
                         placeholder="search"
                     />
 
-                    {products.map((product) => {
+                    {products?.map((product) => {
                         return (
                             <div key={product._id} className="col-md-3">
                                 <div className="product px-3">
