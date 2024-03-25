@@ -59,7 +59,7 @@ export function Products() {
     // );
     // console.log(products);
 
-    return (
+    return (            
         <>
             <div className="container py-5">
                 <div className="row gy-4 mt-5">
@@ -72,8 +72,9 @@ export function Products() {
                                     >
                                         <img
                                             src={product.mainImage.secure_url}
-                                            className="w-100"
+                                            className="w-auto"
                                             alt={""}
+                                            height="150px"
                                         />
                                         <h6 className="text-success">
                                             Category: {product.categoryId?.name}
