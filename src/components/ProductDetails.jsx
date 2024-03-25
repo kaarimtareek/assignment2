@@ -17,7 +17,6 @@ export function ProductDetails() {
     const [counter, setCounter] = useState(1);
 
     async function addProduct(id, qty) {
-        
         const res = await addProductToCart(id, qty);
         console.log(res);
         if (res?.message === "Done") {
@@ -96,7 +95,10 @@ export function ProductDetails() {
                     </div>
                     <div className="col-md-8">
                         <div className="details">
-                            <h1 className="mb-4">{data.data.product.name}</h1>
+                            <h1 className="mb-4">
+                                Title: {data.data.product.name}
+                            </h1>
+                            <p>Description: {data.data.product.description}</p>
                             <div className="d-flex justify-content-between align-items-center mb-4">
                                 <p className="m-0 font-weight-bold">
                                     {data.data.product.price} EGP
