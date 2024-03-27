@@ -74,7 +74,7 @@ export function Login() {
 
     return (
         <>
-            <div className="container pt-5">
+            <div className="mx-5 pt-5">
                 {errMsg ? (
                     <div className="alert alert-danger my-3">{errMsg}</div>
                 ) : (

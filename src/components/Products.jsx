@@ -1,13 +1,13 @@
+/* eslint-disable jsx-a11y/alt-text */
 import axios from "axios";
 import React, { useContext } from "react";
-import { ColorRing } from "react-loader-spinner";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { cartContext } from "./CartContext";
 import { wishlistContext } from "./WishlistContext";
 import { API_BASE_URL } from "../config";
-export function Products() {
+export function Products(props) {
     const { addProductToCart } = useContext(cartContext);
     const { addProductToWishlist } = useContext(wishlistContext);
 
@@ -19,105 +19,135 @@ export function Products() {
             toast.error("error occured");
         }
     }
-
     async function wishProduct(id) {
         const res = await addProductToWishlist(id);
     }
 
-    function getAllProducts() {
-        return axios.get(`${API_BASE_URL}/product`);
-    }
-    const { isLoading, data } = useQuery("allProducts", getAllProducts);
-    console.log(data);
+    let { products } = props;
 
-    if (isLoading) {
-        return (
-            <div className=" vh-100 d-flex align-items-center justify-content-center">
-                <ColorRing
-                    visible={true}
-                    hight="80"
-                    width="80"
-                    arialLabel="blocks-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="blocks-wrapper"
-                    colors={[
-                        "#e15b64",
-                        "#f47e60",
-                        "#f8b26a",
-                        "#abbd81",
-                        "#849b87",
-                    ]}
-                />
-            </div>
-        );
-    }
-
-    let products = data.data.products;
-    // products = products.filter(
-    //     (product) =>
-    //         product.categoryId.id === "65d0a284a2bcca8d1b12747a"
-    // );
-    // console.log(products);
-
-    return (            
+    return (
         <>
             <div className="container py-5">
-                <div className="row gy-4 mt-5">
+                <div className="row justify-content-center d-flex gy-5">
                     {products?.map((product) => {
                         return (
-                            <div key={product._id} className="col-md-3">
-                                <div className="product px-3">
+                            <div
+                                key={product._id}
+                                className="col-lg-3 col-md-4 col-sm-6"
+                            >
+                                <div
+                                    data-discount={product.discount + "% OFF"}
+                                    className="product-card card mx-3"
+                                >
                                     <Link
                                         to={`/productDetailes/${product._id}`}
                                     >
                                         <img
                                             src={product.mainImage.secure_url}
-                                            className="w-auto"
-                                            alt={""}
-                                            height="150px"
+                                            className="product-image card-img-top img-fluid"
+                                            style={{
+                                                maxWidth: "100%",
+                                                height: "auto",
+                                                objectFit: "cover",
+                                            }}
                                         />
-                                        <h6 className="text-success">
-                                            Category: {product.categoryId?.name}
-                                        </h6>
-                                        <h6 className="text-success">
-                                            SubCategory:{" "}
-                                            {product.subCategoryId?.name}
-                                        </h6>
-                                        <h6 className="text-success">
-                                            Brand: {product.brandId?.name}
-                                        </h6>
-                                        <h5 className="py-3">
-                                            TITLE:{" "}
-                                            {product.name
-                                                .split(" ")
-                                                .slice(0 - 2)
-                                                .join(" ")}
-                                        </h5>
-                                        <div className="d-flex justify-content-between ">
-                                            PRICE: <p>{product.price} EGP</p>
-                                            {/* <p>
+                                        <div className="card-body ">
+                                            <div className="card-title">
+                                                <h5
+                                                    className="py-1 text-center text-uppercase text"
+                                                    color=""
+                                                    style={{
+                                                        fontWeight: 600,
+                                                    }}
+                                                >
+                                                    {product.name
+                                                        .split(" ")
+                                                        .slice(0 - 2)
+                                                        .join(" ")}
+                                                </h5>
+                                                <div
+                                                    className="tags d-flex flex-wrap flex-start"
+                                                    style={{
+                                                        color: "lightgrey",
+                                                        fontWeight: 100,
+                                                    }}
+                                                >
+                                                    <span class="tag badge rounded-pill bg-info">
+                                                        {
+                                                            product?.categoryId
+                                                                ?.name
+                                                        }
+                                                    </span>
+                                                    <span class="tag badge rounded-pill bg-info ">
+                                                        {
+                                                            product
+                                                                ?.subCategoryId
+                                                                ?.name
+                                                        }
+                                                    </span>
+                                                    <span class="tag badge rounded-pill bg-info">
+                                                        {product?.brandId?.name}
+                                                    </span>
+                                                </div>
+                                                <div className="d-flex justify-content-between mt-3">
+                                                    PRICE{" "}
+                                                    <span
+                                                        className="bg-light"
+                                                        style={{
+                                                            padding: "5px 10px",
+                                                            fontWeight: "500",
+                                                        }}
+                                                    >
+                                                        {product.price} EGP
+                                                    </span>
+                                                    {/* <p>
                                                 {" "}
                                                 <span>
                                                     <i className="fa-solid fa-star text-warning"></i>
                                                 </span>
                                                 {product.ratingsAverage}
                                             </p> */}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <Link
-                                            onClick={() =>
-                                                wishProduct(product._id)
-                                            }
+                                        <div
+                                            className="card-footer d-flex justify-content-between"
+                                            style={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "space-between",
+                                                backgroundColor:
+                                                    "red !important",
+                                            }}
                                         >
-                                            <i className="pointer fa-solid fa-heart d-flex justify-content-end fs-3"></i>
-                                        </Link>
+                                            <button
+                                                onClick={() =>
+                                                    addProduct(product._id)
+                                                }
+                                                className="btn btn-outline-danger mb-2"
+                                            >
+                                                {" "}
+                                                + Add
+                                            </button>
+                                            <Link
+                                                onMouseEnter={(e) =>
+                                                    e.target.classList.add(
+                                                        "fa-solid"
+                                                    )
+                                                }
+                                                onMouseLeave={(e) =>
+                                                    e.target.classList.remove(
+                                                        "fa-solid"
+                                                    )
+                                                }
+                                                onClick={() =>
+                                                    wishProduct(product._id)
+                                                }
+                                            >
+                                                <i className="pointer fa-regular fa-heart d-flex justify-content-end fs-3"></i>
+                                            </Link>
+                                        </div>
                                     </Link>
-                                    <button
-                                        onClick={() => addProduct(product._id)}
-                                        className="btn btn-success mb-2"
-                                    >
-                                        {" "}
-                                        + Add
-                                    </button>
                                 </div>
                             </div>
                         );

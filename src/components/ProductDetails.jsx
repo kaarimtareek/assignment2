@@ -84,7 +84,7 @@ export function ProductDetails() {
                             {/* <img
                                 className="img-fluid"
                                 src={data.data.product.mainImage.secure_url}
-                                alt={data.data.product.nyyyame}
+                                alt={data.data.product.name}
                             />
                              */}
                             {Slideshow([

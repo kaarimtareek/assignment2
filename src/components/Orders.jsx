@@ -65,15 +65,7 @@ export const Orders = () => {
     let orders = data.data.order;
 
     return (
-        <Table
-            striped
-            bordered
-            hover
-            style={{
-                position: "absolute",
-                top: "100px",
-            }}
-        >
+        <Table striped bordered hover>
             <thead>
                 <tr>
                     <th>Products</th>

@@ -1,78 +1,145 @@
-import React, { useContext } from "react";
-import { authContext } from "./authen";
-import { HomeSlider } from "./homeSlider";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React from "react";
 import { Products } from "./Products";
+import axios from "axios";
+import { Spinner } from "./Spinner";
+import { Link } from "react-router-dom";
+
+import { API_BASE_URL } from "../config";
+import { useQuery, useQueries } from "react-query";
+import { Brands } from "./Brands";
+
+const token = localStorage.getItem("tkn");
+const getAllProducts = () => {
+    return axios.get(`${API_BASE_URL}/product`);
+};
+
+const getAllBrands = () => {
+    return axios.get(`${API_BASE_URL}/brand`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+};
 
 export function Home() {
-    const { token } = useContext(authContext);
+    const queries = useQueries([
+        { queryKey: "products", queryFn: getAllProducts },
+        { queryKey: "brands", queryFn: getAllBrands },
+    ]);
 
-    const settings = {
-        dots: true,
-        fade: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-    };
+    const isLoading = queries.some((query) => query.isLoading);
+    const [productsQuery, brandsQuery] = queries;
+
+    if (isLoading) {
+        return <Spinner />;
+    }
+
+    const products = productsQuery.data.data.products;
+    const brands = brandsQuery.data.data.brand;
+
+    console.log({ brands, products });
 
     return (
         <>
-            <div className="container">
-                <div className="row ">
-                    <div className="col-sm-9 ">
-                        <div className="mt-5 ms-5">
-                            <Slider {...settings}>
-                                <div>
-                                    <img
-                                        style={{
-                                            width: "50%",
-                                            height: "400px",
-                                        }}
-                                        src={require("../images/XCM_Manual_1396328_4379574_Egypt_EG_BAU_GW_DC_SL_Jewelry_379x304_1X._SY304_CB650636675_.jpg")}
-                                    />
-                                </div>
-                                <div>
-                                    <img
-                                        style={{
-                                            width: "50%",
-                                            height: "400px",
-                                        }}
-                                        src={require("../images/41nN4nvKaAL._AC_SY200_.jpg")}
-                                    />
-                                </div>
-                                <div>
-                                    <img
-                                        style={{
-                                            width: "50%",
-                                            height: "400px",
-                                        }}
-                                        src={require("../images/61cSNgtEISL._AC_SY200_.jpg")}
-                                    />
-                                </div>
-                            </Slider>
+            <div className="landing">
+                <div className="row">
+                    <div className="col-lg-6 col-md-12 p-5">
+                        <div className="landing-text">
+                            <p className="landing-title">
+                                Discover and Find Your Own Fashion!
+                            </p>
+                            <p className="landing-paragraph">
+                                Explore our curated collection of stylish
+                                clothing and accessories tailored to your unique
+                                taste.
+                            </p>
                         </div>
+                        <button
+                            className="btn btn-secondary"
+                            style={{
+                                borderRadius: 0,
+                                padding: "10px 20px",
+                                width: "200px",
+                                fontWeight: 500,
+                            }}
+                        >
+                            EXPLORE NOW
+                        </button>
                     </div>
-
-                    <div className="col-sm-3 mt-5">
+                    <div className="model-photo-container col-lg-6 p-5">
                         <img
-                            style={{ width: "100%", height: "200px" }}
-                            src={require("../images/bags.jpg")}
-                            alt=""
-                        />
-                        <img
-                            style={{ width: "100%", height: "200px" }}
-                            src={require("../images/giutar.jpg")}
-                            alt=""
+                            src={require("../assets/model.png")}
+                            alt="model"
+                            style={{ height: "500px", width: "auto" }}
                         />
                     </div>
                 </div>
-                <HomeSlider />
+            </div>
+            <div className="recommended-products-section">
+                <h3 className="recommended-products-title">
+                    Recommended Products
+                </h3>
+                <p className="recommended-products-text">
+                    Get in on the trend with our curated selection of
+                    recommended products.
+                </p>
+                <Products products={products.slice(1, 4)} />
+                <Link
+                    to="/products"
+                    className="btn btn-outline-info"
+                    style={{
+                        display: "block",
+                        margin: "20px auto",
+                        width: "fit-content",
+                        padding: "10px 20px",
+                        borderRadius: 0,
+                    }}
+                >
+                    SEE MORE
+                </Link>
+            </div>
+            <div className="feedback-section">
+                <h3 className="feedback-section-title">Feedback Corner</h3>
+                <div className="feedback-section-container">
+                    <div className="feedback-item">
+                        <h5 className="feedback-author">Emily Wilson</h5>
+                        <div className="feedback-content">
+                            The customer experience was exceptional from start
+                            to finish. The website is user-friendly, the
+                            checkout process was smooth, and the clothes I
+                            ordered fit perfectly. I'm beyond satisfied!
+                        </div>
+                    </div>
+                    <div className="feedback-item">
+                        <h5 className="feedback-author">Sarah Thompson</h5>
+                        <div className="feedback-content">
+                            I absolutely love the quality and style of the
+                            clothing I purchased from this website. customer
+                            service was outstanding, and I received my order
+                            quickly. Highly recommended!
+                        </div>
+                    </div>
+                    <div className="feedback-item">
+                        <h5 className="feedback-author">David Hanks</h5>
+                        <div className="feedback-content">
+                            I absolutely love the quality and style of the
+                            clothing I purchased from this website. customer
+                            service was outstanding, and I received my order
+                            quickly. Highly recommended!
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <Products />
+            <div className="brands-section">
+                <h3 className="brands-section-title">Our Brands</h3>
+                <p className="brands-section-text">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam optio reiciendis fugit non quisquam est, itaque
+                    incidunt odio hic. Molestiae!
+                </p>
+                <Brands brands={brands.slice(0, 3)} />
+            </div>
         </>
     );
 }
