@@ -75,11 +75,11 @@ export function Home() {
                     </div>
                 </div>
             </div>
-            <div className="recommended-products-section">
-                <h3 className="recommended-products-title">
+            <div className="recommended-products-section ">
+                <h3 className="recommended-products-title section-heading">
                     Recommended Products
                 </h3>
-                <p className="recommended-products-text">
+                <p className="recommended-products-text section-text">
                     Get in on the trend with our curated selection of
                     recommended products.
                 </p>
@@ -99,7 +99,9 @@ export function Home() {
                 </Link>
             </div>
             <div className="feedback-section">
-                <h3 className="feedback-section-title">Feedback Corner</h3>
+                <h3 className="feedback-section-title section-heading">
+                    Feedback Corner
+                </h3>
                 <div className="feedback-section-container">
                     <div className="feedback-item">
                         <h5 className="feedback-author">Emily Wilson</h5>
@@ -131,9 +133,11 @@ export function Home() {
                 </div>
             </div>
 
-            <div className="brands-section">
-                <h3 className="brands-section-title">Our Brands</h3>
-                <p className="brands-section-text">
+            <div className="brands-section" style={{ marginBottom: "150px" }}>
+                <h3 className="brands-section-title section-heading">
+                    Our Brands
+                </h3>
+                <p className="brands-section-text section-text ">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Totam optio reiciendis fugit non quisquam est, itaque
                     incidunt odio hic. Molestiae!

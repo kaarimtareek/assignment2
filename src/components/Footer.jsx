@@ -77,7 +77,7 @@ export function Footer() {
                                     <div class="footer-widget-heading">
                                         <h3>Useful Links</h3>
                                     </div>
-                                    <ul class="footer-widget-menu">
+                                    <ul class="footer-widget-menu text-white">
                                         <li>
                                             <a href="#">Home</a>
                                         </li>
@@ -154,7 +154,7 @@ export function Footer() {
                             </div>
                             <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
                                 <div class="footer-menu">
-                                    <ul>
+                                    <ul className="text-secondary">
                                         <li>
                                             <a href="#">Home</a>
                                         </li>

@@ -56,7 +56,6 @@ export function Wishlist() {
     }
 
     async function deleteWish(id) {
-        debugger;
         const res = await deleteWishlistItem(id);
         if (res.message === "remove to Wishlist") {
             toast.success("product Removed Successfully");

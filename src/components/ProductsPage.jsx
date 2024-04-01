@@ -10,7 +10,6 @@ import { Spinner } from "./Spinner";
 import { API_BASE_URL } from "../config";
 import { Products } from "./Products";
 export function ProductsPage() {
-    debugger;
     function getAllProducts() {
         return axios.get(`${API_BASE_URL}/product`);
     }

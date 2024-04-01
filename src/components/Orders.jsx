@@ -41,7 +41,6 @@ export const Orders = () => {
     }
 
     const handleCancelOrder = async (orderId) => {
-        debugger;
         try {
             const { data } = await axios.patch(
                 `${API_BASE_URL}/order/${orderId}/canceled`,

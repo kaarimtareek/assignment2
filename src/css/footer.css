@@ -3,9 +3,8 @@ ul {
     padding: 0px;
 }
 .footer-section {
-    background: var(--secondary-color);
+    background: black;
     position: relative;
-    margin-top: 300px;
 }
 .footer-cta {
     border-bottom: 1px solid #373636;
@@ -101,7 +100,6 @@ ul {
 }
 .footer-widget ul li {
     display: inline-block;
-    float: left;
     width: 50%;
     margin-bottom: 12px;
 }

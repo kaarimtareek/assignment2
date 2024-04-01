@@ -145,18 +145,20 @@ a {
     color: #224f34;
 }
 
-.recommended-products-text {
-    /* Recommended Products */
-    margin-top: 20px;
+.section-text {
+    /* Get in on the trend with our curated selection of recommended products. */
+
     font-family: "Poppins";
     font-style: normal;
     font-weight: 500;
     font-size: 22px;
     line-height: 33px;
+    text-align: center;
     /* identical to box height */
 
     color: #224f34;
 }
+
 .model-photo-container {
     padding: 20px;
     display: flex;
@@ -175,7 +177,7 @@ a {
 .feedback-section {
     height: fit-content;
     max-width: 100%;
-    margin-top: 80px;
+    margin-top: 20px;
     padding: 40px;
     background-color: #f6f6f6;
 }
@@ -240,7 +242,7 @@ a {
 .brands-section {
     height: fit-content;
     width: 100%;
-    margin-top: 80px;
+    margin-top: 20px;
     padding: 40px;
 }
 
@@ -279,7 +281,7 @@ a {
 }
 
 .brand-item:hover {
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    box-shadow: rgba(255, 255, 255, 0.765) 0px 30px 60px -12px inset,
         rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
@@ -294,14 +296,29 @@ a {
     object-fit: "cover";
 }
 
-.brands-section-text {
-    margin-top: 20px;
+.section-heading {
     text-align: center;
-    font-family: "Poppins";
-    width: 70%;
-    margin: 0 auto;
+    font-family: "Roboto Slab";
     font-style: normal;
     font-weight: 500;
-    font-size: 22px;
-    line-height: 33px;
+    font-size: 48px;
+    line-height: 84px;
+    align-self: flex-start;
+    color: #224f34;
+    padding: 20px;
+}
+
+@media (max-width: 992px) {
+    .login-image-section {
+        display: none;
+    }
+    .login-form-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+.brands-section-text {
+    width: 75%;
+    margin: 0 auto;
 }

@@ -1,14 +1,33 @@
-import React, { useContext, useState, useEffect } from "react";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authContext } from "./authen";
 import { cartContext } from "./CartContext";
+import { Categories } from "./Categories";
+import axios from "axios";
+import { useQuery } from "react-query";
+import { API_BASE_URL } from "../config";
 
 export function NavLogin() {
+    const navFun = useNavigate();
     const { token, setToken } = useContext(authContext);
     const { numOfCartItems } = useContext(cartContext);
     const [dataInfo, setDataInfo] = useState(numOfCartItems);
 
-    const navFun = useNavigate();
+    function getAllCategories() {
+        return axios.get(`${API_BASE_URL}/category`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("tkn")}`,
+            },
+        });
+    }
+    const { isLoading, data } = useQuery("allCategories", getAllCategories);
+    console.log(data);
+    if (isLoading) {
+        return "Loading...";
+    }
+
+    const categories = data.data.categories;
 
     function logout() {
         localStorage.removeItem("tkn");
@@ -18,7 +37,7 @@ export function NavLogin() {
 
     return (
         <>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid d-flex justify-content-center p-3">
                     <Link className="navbar-brand" to={"/home"}>
                         {/* <i className="fa-solid fa-cart-shopping d-inline-block align-text-top text-success fs-1"></i>
@@ -26,7 +45,7 @@ export function NavLogin() {
                         <img src={require("../assets/images/image.png")} />
                     </Link>
                     <button
-                        class="navbar-toggler"
+                        className="navbar-toggler"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent"
@@ -34,7 +53,7 @@ export function NavLogin() {
                         aria-expanded="false"
                         aria-label="Toggle navigation"
                     >
-                        <span class="navbar-toggler-icon"></span>
+                        <span className="navbar-toggler-icon"></span>
                     </button>
                     <div
                         className="collapse navbar-collapse d-flex justify-content-around"
@@ -72,30 +91,24 @@ export function NavLogin() {
                                         Products
                                     </Link>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item dropdown">
                                     <Link
-                                        className="nav-link"
-                                        to={"/categories"}
+                                        className="nav-link dropdown-toggle"
+                                        role="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
                                     >
                                         Categories
                                     </Link>
+                                    {/* <Categories categories={categories} /> */}
                                 </li>
+
                                 <li className="nav-item">
                                     <Link
                                         className="nav-link"
                                         to={"/subcategories"}
                                     >
                                         Sub-Categories
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to={"/brands"}>
-                                        Brands
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to={"/orders"}>
-                                        My Orders
                                     </Link>
                                 </li>
                             </ul>
