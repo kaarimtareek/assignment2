@@ -41,7 +41,6 @@ export const Orders = () => {
     }
 
     const handleCancelOrder = async (orderId) => {
-        debugger;
         try {
             const { data } = await axios.patch(
                 `${API_BASE_URL}/order/${orderId}/canceled`,
@@ -65,15 +64,7 @@ export const Orders = () => {
     let orders = data.data.order;
 
     return (
-        <Table
-            striped
-            bordered
-            hover
-            style={{
-                position: "absolute",
-                top: "100px",
-            }}
-        >
+        <Table striped bordered hover>
             <thead>
                 <tr>
                     <th>Products</th>

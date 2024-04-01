@@ -28,7 +28,6 @@ export function WishlistContextProvider({ children }) {
         }
     }
     async function addProductToWishlist(productId) {
-        debugger;
         try {
             const { data } = await axios.patch(
                 `${API_BASE_URL}/user/addToWishList/${productId}`,
@@ -53,7 +52,6 @@ export function WishlistContextProvider({ children }) {
     }
 
     async function getUserWishlist() {
-        debugger;
         try {
             const { data } = await axios.get(
                 `${API_BASE_URL}/user/WishList/get`,

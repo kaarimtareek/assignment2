@@ -4,7 +4,6 @@ import { Layout } from "./components/Layout";
 import { Login } from "./components/Login";
 import { Register } from "./components/Register";
 import { Brands } from "./components/Brands";
-import { Products } from "./components/Products";
 import { Wishlist } from "./components/Wishlist";
 import { Home } from "./components/Home";
 import { Categories } from "./components/Categories";
@@ -22,6 +21,7 @@ import { ProductsByCategory } from "./components/ProductsByCategory";
 import { ProductsBySubCategory } from "./components/ProductsBySubCategory";
 import { ProductsByBrand } from "./components/ProductsByBrand";
 import { Orders } from "./components/Orders";
+import { ProductsPage } from "./components/ProductsPage";
 
 const router = createHashRouter([
     {
@@ -37,7 +37,7 @@ const router = createHashRouter([
             { path: "wishlist", element: <Wishlist /> },
             { path: "productDetailes/:id", element: <ProductDetails /> },
             // {index:true ,element:<Home />},
-            { path: "products", element: <Products /> },
+            { path: "products", element: <ProductsPage /> },
             { path: "categories", element: <Categories /> },
             { path: "brands", element: <Brands /> },
             { path: "subcategories", element: <SubCategories /> },

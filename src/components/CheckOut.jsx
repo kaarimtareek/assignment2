@@ -36,7 +36,7 @@ export function CheckOut() {
                 delete values.couponName;
             }
             console.log(values);
-            debugger;
+           
             const { data } = await axios.post(`${API_BASE_URL}/order`, values, {
                 headers: { Authorization: `Bearer ${token}` },
             });
