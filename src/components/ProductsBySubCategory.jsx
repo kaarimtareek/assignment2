@@ -26,11 +26,26 @@ export function ProductsBySubCategory() {
     }
 
     let products = data.data.products;
-    products = products?.filter((product) => product.subCategoryId?._id === id);
+    products = products?.filter(
+        (product) => product?.subCategoryId?._id === id
+    );
+    const subCategoryName = products[0]?.subCategoryId?.name;
     console.log(products);
 
     return (
         <>
+            <h3
+                style={{
+                    textAlign: "center",
+                    marginTop: "40px",
+                    marginBottom: "40px",
+                    textTransform: "capitalize",
+                    color: "#224f34",
+                    fontWeight: "700",
+                }}
+            >
+                {subCategoryName}
+            </h3>
             <Products products={products} />
         </>
     );

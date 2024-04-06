@@ -1,3 +1,4 @@
+// App.js
 import { Component } from "react";
 import { RouterProvider, createHashRouter } from "react-router-dom";
 import { Layout } from "./components/Layout";
@@ -8,7 +9,7 @@ import { Wishlist } from "./components/Wishlist";
 import { Home } from "./components/Home";
 import { Categories } from "./components/Categories";
 import { AuthContextProvider } from "./components/authen";
-// import { ProtectedRoute } from "./components/ProtectedRoute";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ProductDetails } from "./components/ProductDetails";
 import { Toaster } from "react-hot-toast";
@@ -16,7 +17,7 @@ import { CartContextProvider } from "./components/CartContext";
 import { Cart } from "./components/Cart";
 import { WishlistContextProvider } from "./components/WishlistContext";
 import { CheckOut } from "./components/CheckOut";
-import { SubCategories } from "./components/Subcategories";
+import { Subcategories } from "./components/Subcategories";
 import { ProductsByCategory } from "./components/ProductsByCategory";
 import { ProductsBySubCategory } from "./components/ProductsBySubCategory";
 import { ProductsByBrand } from "./components/ProductsByBrand";
@@ -40,7 +41,7 @@ const router = createHashRouter([
             { path: "products", element: <ProductsPage /> },
             { path: "categories", element: <Categories /> },
             { path: "brands", element: <Brands /> },
-            { path: "subcategories", element: <SubCategories /> },
+            { path: "subcategories", element: <Subcategories /> },
             { path: "productsByCategory/:id", element: <ProductsByCategory /> },
             {
                 path: "productsBySubCategory/:id",
@@ -65,21 +66,22 @@ const router = createHashRouter([
 export class App extends Component {
     render() {
         let queryClient = new QueryClient();
-        {
-            return (
-                <>
-                    <QueryClientProvider client={queryClient}>
-                        <CartContextProvider>
-                            <WishlistContextProvider>
-                                <AuthContextProvider>
-                                    <RouterProvider router={router} />
-                                </AuthContextProvider>
-                            </WishlistContextProvider>
-                        </CartContextProvider>
-                        <Toaster />
-                    </QueryClientProvider>
-                </>
-            );
-        }
+        return (
+            <>
+                <QueryClientProvider client={queryClient}>
+                    <CartContextProvider>
+                        <WishlistContextProvider>
+                            <AuthContextProvider>
+                                {/* Wrap the router with RouterProvider */}
+                                <RouterProvider
+                                    router={router}
+                                ></RouterProvider>
+                            </AuthContextProvider>
+                        </WishlistContextProvider>
+                    </CartContextProvider>
+                    <Toaster />
+                </QueryClientProvider>
+            </>
+        );
     }
 }

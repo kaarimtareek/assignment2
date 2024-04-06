@@ -139,7 +139,7 @@ export function Register() {
                                     onChange={formikObj.handleChange}
                                     id="userName"
                                     value={formikObj.values.userName}
-                                    className="form-control"
+                                    className="form-control w-75"
                                     type="text"
                                     placeholder="Enter Your Username"
                                     aria-label="default input example"
@@ -170,7 +170,7 @@ export function Register() {
                                         id="email"
                                         type="email"
                                         placeholder="Enter Your Email"
-                                        className="form-control"
+                                        className="form-control w-75"
                                     />
                                     {formikObj.errors.email &&
                                     formikObj.touched.email ? (
@@ -198,7 +198,7 @@ export function Register() {
                                     placeholder="Enter Your Password"
                                     id="password"
                                     type="password"
-                                    className="form-control"
+                                    className="form-control w-75"
                                 />
                                 {formikObj.errors.password &&
                                 formikObj.touched.password ? (
@@ -226,7 +226,7 @@ export function Register() {
                                         id="cPassword"
                                         placeholder="Confirm Your Password"
                                         type="password"
-                                        className="form-control"
+                                        className="form-control w-75"
                                     />
                                     {formikObj.errors.cPassword &&
                                     formikObj.touched.cPassword ? (

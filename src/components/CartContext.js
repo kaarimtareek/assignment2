@@ -9,6 +9,7 @@ export function CartContextProvider({ children }) {
     const [totalCartPrice, setTotalCartPrice] = useState(0);
     const [numOfCartItems, setNumOfCartItems] = useState(0);
     const [cartId, setCartId] = useState("");
+    const [couponName, setCouponName] = useState("");
     const token = localStorage.getItem("tkn");
 
     async function addProductToCart(productId, qty = 1) {
@@ -49,8 +50,22 @@ export function CartContextProvider({ children }) {
             console.log("error", e);
         }
     }
+    async function getCouponData(name) {
+        try {
+            debugger;
+            const { data } = await axios.get(
+                `${API_BASE_URL}/coupon/GetByName/${name}`
+            );
+            setCouponName(data.coupon.name);
+
+            return data;
+        } catch (e) {
+            console.log("error", e);
+        }
+    }
 
     async function getUserCart() {
+        if (!token) return;
         try {
             let { data } = await axios.get(`${API_BASE_URL}/cart`, {
                 headers: {
@@ -170,13 +185,14 @@ export function CartContextProvider({ children }) {
                 setCartProducts,
                 setTotalCartPrice,
                 setNumOfCartItems,
+                getCouponData,
                 cartProducts,
                 totalCartPrice,
                 numOfCartItems,
+                couponName,
             }}
         >
             {children}
         </cartContext.Provider>
     );
 }
-

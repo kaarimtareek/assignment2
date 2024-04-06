@@ -322,3 +322,7 @@ a {
     width: 75%;
     margin: 0 auto;
 }
+
+.order-card:hover {
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}

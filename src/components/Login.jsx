@@ -142,7 +142,7 @@ export function Login() {
                                         value={formikObj.values.email}
                                         id="email"
                                         type="email"
-                                        className="form-control mb-1"
+                                        className="form-control mb-1 w-75"
                                     />
                                     {formikObj.errors.email &&
                                     formikObj.touched.email ? (
@@ -171,7 +171,7 @@ export function Login() {
                                     value={formikObj.values.password}
                                     id="password"
                                     type="password"
-                                    className="form-control mb-1"
+                                    className="form-control mb-1 w-75"
                                 />
                                 {formikObj.errors.password &&
                                 formikObj.touched.password ? (

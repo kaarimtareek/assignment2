@@ -15,7 +15,6 @@ $bs-border-width:  0px;
   border-left: none;
   border-right: none;
   border-radius: 0;
-  width: 500px;
 }
 .form-control:focus{
   border-top: none;
@@ -35,4 +34,8 @@ $bs-border-width:  0px;
 
 .form-control::placeholder{
   color: #a3a3a3;
+}
+
+.table{
+  background-color: transparent;
 }
