@@ -3,11 +3,10 @@ import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 
 const divStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundSize: "cover",
+    backgroundSize: "contain",
+    backgroundPoistion: "center",
     height: "400px",
+    width: "auto",
 };
 
 export const Slideshow = (slideImages) => {

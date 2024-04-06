@@ -1,24 +1,17 @@
-// import React, { useContext } from 'react'
-// import { authContext } from './authen';
-// import { Navigate } from 'react-router-dom';
+// ProtectedRoute.js
+import React, { useContext } from "react";
+import { Route } from "react-router-dom";
+import { authContext } from "./authen";
 
-// export function ProtectedRoute({Children}) {
-
-//     const{token} = useContext(authContext);
-    
-//     if (token === null) {
-
-//         return <Navigate to={'/login'}/>
-        
-//     }
-
+// export const ProtectedRoute = ({ component: Component, ...rest }) => {
+//     const { token } = useContext(authContext);
 
 //     return (
-//         <>
-//             {Children}
-//         </>
-//     )
-// }
-
-
-
+//         <Route
+//             {...rest}
+//             render={(props) =>
+//                 token ? <Component {...props} /> :  />
+//             }
+//         />
+//     );
+// };

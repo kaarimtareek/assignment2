@@ -64,49 +64,62 @@ export const Orders = () => {
     let orders = data.data.order;
 
     return (
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>Products</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>Payment Type</th>
-                    <th>Final Price</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div className="container py-5">
+            <div className="section-heading">My Orders</div>
+            <div className="row">
                 {orders?.map((order) => (
-                    <tr key={order._id}>
-                        <td>
-                            <ul>
-                                {order.products.map((product, index) => (
-                                    <li key={index}>
-                                        {product.name} - Quantity:{" "}
-                                        {product.quantity}
-                                    </li>
-                                ))}
-                            </ul>
-                        </td>
-                        <td>{order.address}</td>
-                        <td>{order.phone.join(", ")}</td>
-                        <td>{order.paymentTypes}</td>
-                        <td>{order.finalPrice}</td>
-                        <td>{order.status}</td>
-                        <td>
-                            {order.status === "waitForPayment" && (
-                                <Button
-                                    variant="danger"
-                                    onClick={() => handleCancelOrder(order._id)}
-                                >
-                                    Cancel Order
-                                </Button>
-                            )}
-                        </td>
-                    </tr>
+                    <div key={order._id} className="col-md-4 mb-4 ">
+                        <div className="order-card card h-100 p-3">
+                            <div className="card-body">
+                                <h5 className="fw-bolder text-center mb-5">
+                                    {order._id}
+                                </h5>
+                                <strong className="card-title">
+                                    Products:{" "}
+                                </strong>
+                                <ul className="py-1">
+                                    {order.products.map((product, index) => (
+                                        <li key={index} className="text-dark">
+                                            {product.name} - Quantity:{" "}
+                                            {product.quantity}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <p>
+                                    <strong>Address: </strong>
+                                    {order.address}
+                                </p>
+                                <p>
+                                    <strong>Phone: </strong>
+                                    {order.phone.join(", ")}
+                                </p>
+                                <p>
+                                    <strong>Payment Type: </strong>
+                                    {order.paymentTypes}
+                                </p>
+                                <p>
+                                    <strong>Final Price: </strong>
+                                    {order.finalPrice}
+                                </p>
+                                <p>
+                                    <strong>Status: </strong>
+                                    {order.status}
+                                </p>
+                                {order.status === "waitForPayment" && (
+                                    <button
+                                        className="btn btn-danger"
+                                        onClick={() =>
+                                            handleCancelOrder(order._id)
+                                        }
+                                    >
+                                        Cancel Order
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 ))}
-            </tbody>
-        </Table>
+            </div>
+        </div>
     );
 };

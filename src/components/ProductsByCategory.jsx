@@ -46,11 +46,24 @@ export function ProductsByCategory() {
     }
 
     let products = data.data.products;
-    products = products?.filter((product) => product.categoryId?._id === id);
+    products = products?.filter((product) => product?.categoryId?._id === id);
+    let categoryName = products[0]?.categoryId?.name;
     console.log(products);
 
     return (
         <>
+            <h3
+                style={{
+                    textAlign: "center",
+                    marginTop: "40px",
+                    marginBottom: "40px",
+                    textTransform: "capitalize",
+                    color: "#224f34",
+                    fontWeight: "700",
+                }}
+            >
+                {categoryName}
+            </h3>
             <Products products={products} />
         </>
     );

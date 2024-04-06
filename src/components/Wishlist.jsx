@@ -35,7 +35,7 @@ export function Wishlist() {
     if (wishlistProducts.length === 0) {
         return (
             <>
-                <div className="bg-light container py-5">
+                <div className=" container py-5" style={{ height: "100vh" }}>
                     <h1 className="pt-5"> Wishlist</h1>
                     <h3>your Wishlist is empty</h3>
                 </div>
@@ -66,59 +66,115 @@ export function Wishlist() {
 
     return (
         <>
-            <div className="container pt-5 bg-light">
-                <div className="row pt-5">
-                    <div className="d-flex align-items-center justify-content-between p-5">
-                        <h2>My wish List</h2>
-                    </div>
-
-                    {wishlistProducts?.map((product) => {
-                        return (
+            <div className="container-fluid">
+                <div className="row mb-5">
+                    <div
+                        className="col-8 offset-2  p-5"
+                        style={{ height: "fit-content" }}
+                    >
+                        <div className="fw-bold shopping-cart-header  d-flex justify-content-between align-items-center p-3">
+                            <div className="fs-4">My Wish List</div>
+                        </div>
+                        <hr style={{ backgroundColor: "transparent" }} />
+                        <div className="shopping-cart-table mt-3">
                             <div
-                                key={product._id}
-                                className="row border-bottom border-3  p-2"
+                                className="table-header p-3 fw-medium"
+                                style={{ color: "#6f6f6f" }}
                             >
-                                <div className="d-flex justify-content-between">
-                                    <div className=" d-flex align-items-center">
-                                        <img
-                                            className="w-25"
-                                            src={product.mainImage?.secure_url}
-                                            alt={product.name}
-                                        />
-
-                                        <div className="px-4">
-                                            <h4>{product.name}</h4>
-                                            <h6 className="text-success">
-                                                {product.price} EGP
-                                            </h6>
-                                            <Link
-                                                onClick={() =>
-                                                    deleteWish(product._id)
-                                                }
-                                                className="text-danger"
-                                            >
-                                                {" "}
-                                                <i className="fa-solid fa-trash-can "></i>{" "}
-                                                Remove{" "}
-                                            </Link>
-                                        </div>
-                                    </div>
-
-                                    <div className="d-flex align-items-center">
-                                        <button
-                                            onClick={() =>
-                                                addProduct(product._id)
-                                            }
-                                            className="btn btn-outline-success w-100 "
-                                        >
-                                            {" "}
-                                            Add To Cart
-                                        </button>
-                                    </div>
+                                <div className="row">
+                                    <div className="col-6">Product Details</div>
+                                    <div className="col-2">Price</div>
+                                    <div className="col-2">Stock Status</div>
+                                    <div className="col-2">Actions</div>
                                 </div>
                             </div>
-                        );
-                    })}
+                            <div className="table-body p-3">
+                                {wishlistProducts.map((product) => {
+                                    return (
+                                        <div className="table-row">
+                                            <div
+                                                className="row mt-5"
+                                                key={product.id}
+                                            >
+                                                <div className="col-6 d-flex flex-row">
+                                                    <div className="col-6">
+                                                        <img
+                                                            style={{
+                                                                width: "auto",
+                                                                height: "150px",
+                                                            }}
+                                                            src={
+                                                                product
+                                                                    .mainImage
+                                                                    .secure_url
+                                                            }
+                                                            alt=""
+                                                        />
+                                                    </div>
+                                                    <div
+                                                        className="col-6 d-flex flex-column align-items-start justify-content-around
+                                                    "
+                                                        style={{
+                                                            paddingLeft: "20px",
+                                                        }}
+                                                    >
+                                                        <h6 className="fw-bold">
+                                                            {product.name}
+                                                        </h6>
+                                                        <p>
+                                                            {
+                                                                product
+                                                                    .categoryId
+                                                                    ?.name
+                                                            }
+                                                        </p>
+                                                        {/* <div className="text-danger">
+                                                            {displayDiscount(
+                                                                product
+                                                            )}
+                                                        </div> */}
+                                                        <Link
+                                                            onClick={() =>
+                                                                deleteWish(
+                                                                    product._id
+                                                                )
+                                                            }
+                                                            className="text-danger"
+                                                        >
+                                                            {" "}
+                                                            <i className="fa-solid fa-trash-can "></i>{" "}
+                                                            Remove{" "}
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                                <div className="col-2 fw-bold">
+                                                    {product.price}
+                                                </div>
+                                                <div className="col-2 fw-bold">
+                                                    {product.stock > 0
+                                                        ? "In Stock"
+                                                        : "Out of Stock"}
+                                                </div>
+                                                <div className="col-2 fw-bold">
+                                                    <button
+                                                        onClick={() =>
+                                                            addProduct(
+                                                                product._id
+                                                            )
+                                                        }
+                                                        className="btn btn-sm btn-outline-success w-100 "
+                                                    >
+                                                        {" "}
+                                                        Add To Cart
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

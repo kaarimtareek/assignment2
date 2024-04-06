@@ -28,6 +28,8 @@ export function WishlistContextProvider({ children }) {
         }
     }
     async function addProductToWishlist(productId) {
+        if (!token) return;
+
         try {
             const { data } = await axios.patch(
                 `${API_BASE_URL}/user/addToWishList/${productId}`,
@@ -52,6 +54,7 @@ export function WishlistContextProvider({ children }) {
     }
 
     async function getUserWishlist() {
+        if (!token) return;
         try {
             const { data } = await axios.get(
                 `${API_BASE_URL}/user/WishList/get`,

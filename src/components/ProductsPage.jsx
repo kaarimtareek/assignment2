@@ -25,6 +25,18 @@ export function ProductsPage() {
 
     return (
         <>
+            <h3
+                style={{
+                    textAlign: "center",
+                    marginTop: "40px",
+                    marginBottom: "40px",
+                    textTransform: "capitalize",
+                    color: "#224f34",
+                    fontWeight: "700",
+                }}
+            >
+                All Products
+            </h3>
             <Products products={products}></Products>
         </>
     );
