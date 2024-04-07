@@ -249,8 +249,7 @@ export function Register() {
                                         Create Account
                                     </button>
                                     <button
-                                        type="submit"
-                                        id="submit"
+                                        type="button"
                                         className="btn btn-outline-danger mt-3 w-75 py-2"
                                     >
                                         <i class="fa-brands fa-google px-3"></i>{" "}

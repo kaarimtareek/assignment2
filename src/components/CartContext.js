@@ -13,6 +13,12 @@ export function CartContextProvider({ children }) {
     const token = localStorage.getItem("tkn");
 
     async function addProductToCart(productId, qty = 1) {
+        debugger;
+        const productIds = cartProducts.map((p) => p._id);
+        if (productIds.includes(productId)) {
+            return "already in cart";
+        }
+
         try {
             const { data } = await axios.post(
                 `${API_BASE_URL}/cart`,

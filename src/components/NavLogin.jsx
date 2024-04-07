@@ -51,24 +51,25 @@ export function NavLogin() {
 
     function displayCartAndWishList() {
         if (token !== null) {
-            return
-            <>
-                <li className="nav-item">
-                    <Link className="nav-link" to={"/cart"}>
-                        Cart
-                    </Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to={"/wishlist"}>
-                        Wishlist
-                    </Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to={"/orders"}>
-                        My Orders
-                    </Link>
-                </li>
-            </>;
+            return (
+                <>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/cart"}>
+                            Cart
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/wishlist"}>
+                            Wishlist
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/orders"}>
+                            My Orders
+                        </Link>
+                    </li>
+                </>
+            );
         }
     }
 
@@ -76,7 +77,7 @@ export function NavLogin() {
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid d-flex justify-content-center p-3">
-                    <Link style={{}} className="navbar-brand" to={"/home"}>
+                    <Link style={{}} className="navbar-brand" to={"/"}>
                         {/* <i className="fa-solid fa-cart-shopping d-inline-block align-text-top text-success fs-1"></i>
                         <span className="fw-bold">Fresh Cart</span> */}
                         <img
@@ -110,7 +111,7 @@ export function NavLogin() {
                                 <Link
                                     className="nav-link active"
                                     aria-current="page"
-                                    to={"/home"}
+                                    to={"/"}
                                 >
                                     Home
                                 </Link>
@@ -131,7 +132,6 @@ export function NavLogin() {
                                 </Link>
                                 <Categories categories={categories} />
                             </li>
-                            {displayCartAndWishList()}
                             <li className="nav-item dropdown">
                                 <Link
                                     className="nav-link dropdown-toggle"
@@ -143,6 +143,7 @@ export function NavLogin() {
                                 </Link>
                                 <Subcategories subCategories={subCategories} />
                             </li>
+                            {displayCartAndWishList()}
                         </ul>
                         {token ? (
                             <ul className="navbar-nav text-secondary">
