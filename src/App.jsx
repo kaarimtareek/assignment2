@@ -23,6 +23,8 @@ import { ProductsBySubCategory } from "./components/ProductsBySubCategory";
 import { ProductsByBrand } from "./components/ProductsByBrand";
 import { Orders } from "./components/Orders";
 import { ProductsPage } from "./components/ProductsPage";
+import { ForgetPassword } from "./components/ForgetPassword";
+import { ResetPassword } from "./components/ResetPassword";
 
 const router = createHashRouter([
     {
@@ -32,15 +34,17 @@ const router = createHashRouter([
             { path: "/", element: <Login /> },
             { path: "login", element: <Login /> },
             { path: "register", element: <Register /> },
-            { path: "Home", element: <Home /> },
+            // { path: "Home", element: <Home /> },
             { path: "checkout", element: <CheckOut /> },
             { path: "cart", element: <Cart /> },
             { path: "wishlist", element: <Wishlist /> },
             { path: "productDetailes/:id", element: <ProductDetails /> },
-            // {index:true ,element:<Home />},
+            { index: true, element: <Home /> },
             { path: "products", element: <ProductsPage /> },
             { path: "categories", element: <Categories /> },
             { path: "brands", element: <Brands /> },
+            { path: "forgot-password", element: <ForgetPassword /> },
+            { path: "reset-password", element: <ResetPassword /> },
             { path: "subcategories", element: <Subcategories /> },
             { path: "productsByCategory/:id", element: <ProductsByCategory /> },
             {

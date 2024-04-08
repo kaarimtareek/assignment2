@@ -40,7 +40,7 @@ export function Login() {
                 setToken(data.token);
 
                 setTimeout(function () {
-                    navigate("/home");
+                    navigate("/");
                 }, 500);
             }
         } catch (err) {
@@ -201,7 +201,10 @@ export function Login() {
                                         >
                                             Login Now
                                         </button>
-                                        <Link className="text-danger fw-semibold passHov text-decoration-none mx-auto">
+                                        <Link
+                                            to={"/forgot-password"}
+                                            className="text-danger fw-semibold passHov text-decoration-none mx-auto"
+                                        >
                                             Forget Password?
                                         </Link>
                                     </div>

@@ -23,6 +23,9 @@ export function ProductDetails() {
             return;
         }
         const res = await addProductToCart(id, qty);
+        if (res === "already in cart") {
+            toast.error("already in cart");
+        }
         console.log(res);
         if (res?.message === "Done") {
             toast.success("product was added to cart");
@@ -35,6 +38,9 @@ export function ProductDetails() {
             return;
         }
         const res = await addProductToWishlist(id);
+        if (res === "already in wishlist") {
+            toast.error("already in wishlist");
+        }
 
         if (res.status === "success") {
             toast.success(res.message, {

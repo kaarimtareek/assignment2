@@ -19,6 +19,9 @@ export function Products(props) {
             return;
         }
         const res = await addProductToCart(id);
+        if (res === "already in cart") {
+            toast.error("already in cart");
+        }
         debugger;
         if (res.message === "Done") {
             toast.success("product was added to cart");
@@ -33,6 +36,9 @@ export function Products(props) {
             return;
         }
         const res = await addProductToWishlist(id);
+        if (res === "already in wishlist") {
+            toast.error("already in wishlist");
+        }
     }
 
     const renderProductPrice = (product) => {

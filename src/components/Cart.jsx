@@ -90,6 +90,7 @@ export function Cart() {
     }
 
     async function deleteItem(id) {
+        debugger;
         const res = await deleteCartItem(id);
         console.log(res);
         try {
@@ -138,11 +139,11 @@ export function Cart() {
                             <div className="table-body p-3">
                                 {cartProducts.map((product) => {
                                     return (
-                                        <div className="table-row">
-                                            <div
-                                                className="row mt-5"
-                                                key={product._id}
-                                            >
+                                        <div
+                                            className="table-row"
+                                            key={product._id}
+                                        >
+                                            <div className="row mt-5">
                                                 <div className="col-6 d-flex flex-row">
                                                     <div className="col-6">
                                                         <img

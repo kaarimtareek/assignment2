@@ -28,7 +28,11 @@ export function WishlistContextProvider({ children }) {
         }
     }
     async function addProductToWishlist(productId) {
+        debugger;
         if (!token) return;
+        if (wishlistProducts.map((p) => p._id).includes(productId)) {
+            return "already in wishlist";
+        }
 
         try {
             const { data } = await axios.patch(
