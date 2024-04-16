@@ -67,16 +67,6 @@ export function NavLogin() {
       return (
         <>
           <li className="nav-item">
-            <Link className="nav-link" to={"/cart"}>
-              Cart
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to={"/wishlist"}>
-              Wishlist
-            </Link>
-          </li>
-          <li className="nav-item">
             <Link className="nav-link" to={"/orders"}>
               My Orders
             </Link>
@@ -85,24 +75,24 @@ export function NavLogin() {
       );
     }
   }
-  function displayCartAndWishList() {
-    if (token !== null) {
-      return (
-        <>
-          <li className="nav-item">
-            <Link className="nav-link" to={"/wishlist"}>
-              Wishlist
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to={"/orders"}>
-              My Orders
-            </Link>
-          </li>
-        </>
-      );
-    }
-  }
+  // function displayCartAndWishList() {
+  //   if (token !== null) {
+  //     return (
+  //       <>
+  //         <li className="nav-item">
+  //           <Link className="nav-link" to={"/wishlist"}>
+  //             Wishlist
+  //           </Link>
+  //         </li>
+  //         <li className="nav-item">
+  //           <Link className="nav-link" to={"/orders"}>
+  //             My Orders
+  //           </Link>
+  //         </li>
+  //       </>
+  //     );
+  //   }
+  // }
 
   return (
     <>
@@ -139,11 +129,7 @@ export function NavLogin() {
               style={{ fontWeight: 500 }}
             >
               <li className="nav-item" style={{ fontWeight: 500 }}>
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to={"/home"}
-                >
+                <Link className="nav-link active" aria-current="page" to={"/"}>
                   Home
                 </Link>
               </li>

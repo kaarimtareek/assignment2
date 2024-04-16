@@ -10,48 +10,62 @@ import { Products } from "./Products";
 import { API_BASE_URL } from "../config";
 import { Spinner } from "./Spinner";
 export function ProductsByBrand() {
-    const { addProductToCart } = useContext(cartContext);
-    const { addProductToWishlist } = useContext(wishlistContext);
+  const { addProductToCart } = useContext(cartContext);
+  const { addProductToWishlist } = useContext(wishlistContext);
 
-    const { id } = useParams();
+  const { id } = useParams();
 
-    async function addProduct(id) {
-        const res = await addProductToCart(id);
+  async function addProduct(id) {
+    const res = await addProductToCart(id);
 
-        if (res.status === "success") {
-            toast.success(res.message, {
-                position: "top-right",
-            });
-        }
+    if (res.status === "success") {
+      toast.success(res.message, {
+        position: "top-right",
+      });
     }
+  }
 
-    async function wishProduct(id) {
-        const res = await addProductToWishlist(id);
+  async function wishProduct(id) {
+    const res = await addProductToWishlist(id);
 
-        if (res.status === "success") {
-            toast.success(res.message, {
-                position: "top-right",
-            });
-        }
+    if (res.status === "success") {
+      toast.success(res.message, {
+        position: "top-right",
+      });
     }
+  }
 
-    function getAllProducts() {
-        return axios.get(`${API_BASE_URL}/product`);
-    }
-    const { isLoading, data } = useQuery("allProducts", getAllProducts);
-    console.log(data);
+  function getAllProducts() {
+    return axios.get(`${API_BASE_URL}/product`);
+  }
+  const { isLoading, data } = useQuery("allProducts", getAllProducts);
+  console.log(data);
 
-    if (isLoading) {
-        return <Spinner />;
-    }
+  if (isLoading) {
+    return <Spinner />;
+  }
 
-    let products = data.data.products;
-    products = products?.filter((product) => product.brandId?._id === id);
-    console.log(products);
+  let products = data.data.products;
+  products = products?.filter((product) => product.brandId?._id === id);
+  let brandName = products[0]?.brandId?.name;
 
-    return (
-        <>
-            <Products products={products} />
-        </>
-    );
+  console.log(products);
+
+  return (
+    <>
+      <h3
+        style={{
+          textAlign: "center",
+          marginTop: "40px",
+          marginBottom: "40px",
+          textTransform: "capitalize",
+          color: "#224f34",
+          fontWeight: "700",
+        }}
+      >
+        {brandName}
+      </h3>
+      <Products products={products} />
+    </>
+  );
 }
