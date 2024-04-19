@@ -36,6 +36,7 @@ export function Login() {
 
             if (data.message === "Done") {
                 toast.success("Login Successful");
+                debugger;
                 localStorage.setItem("tkn", data.token);
                 setToken(data.token);
 

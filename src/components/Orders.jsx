@@ -15,7 +15,7 @@ export const Orders = () => {
             },
         });
     }
-    const { isLoading, data } = useQuery("allProducts", getAllOrders);
+    const { isLoading,  data } = useQuery("allProducts", getAllOrders);
     console.log(data);
 
     if (isLoading) {

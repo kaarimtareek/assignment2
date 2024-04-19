@@ -73,16 +73,16 @@ export class App extends Component {
         return (
             <>
                 <QueryClientProvider client={queryClient}>
+                            <AuthContextProvider>
                     <CartContextProvider>
                         <WishlistContextProvider>
-                            <AuthContextProvider>
                                 {/* Wrap the router with RouterProvider */}
                                 <RouterProvider
                                     router={router}
                                 ></RouterProvider>
-                            </AuthContextProvider>
                         </WishlistContextProvider>
                     </CartContextProvider>
+                            </AuthContextProvider>
                     <Toaster />
                 </QueryClientProvider>
             </>

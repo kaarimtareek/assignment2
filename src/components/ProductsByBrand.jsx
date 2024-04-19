@@ -47,7 +47,7 @@ export function ProductsByBrand() {
 
   let products = data.data.products;
   products = products?.filter((product) => product.brandId?._id === id);
-  let brandName = products[0]?.brandId?.name;
+  let brandName =products? products[0]?.brandId?.name : "";
 
   console.log(products);
 

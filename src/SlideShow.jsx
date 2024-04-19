@@ -5,6 +5,8 @@ import "react-slideshow-image/dist/styles.css";
 const divStyle = {
     backgroundSize: "contain",
     backgroundPoistion: "center",
+    backgroundRepeat: "no-repeat",
+    overflow: 'hidden',
     height: "400px",
     width: "auto",
 };

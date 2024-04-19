@@ -8,8 +8,8 @@ export function AuthContextProvider({children}) {
    
    useEffect(function(){
     if (localStorage.getItem('tkn') !== null) {
-        
-        setToken(localStorage.getItem('tkn'))
+        var token2 = localStorage.getItem('tkn');
+        setToken(token2)
     }
    })
 

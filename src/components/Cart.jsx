@@ -149,6 +149,7 @@ export function Cart() {
                                                         <img
                                                             style={{
                                                                 width: "auto",
+                                                                maxWidth:"200px",
                                                                 height: "150px",
                                                             }}
                                                             src={

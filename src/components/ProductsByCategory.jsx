@@ -47,7 +47,7 @@ export function ProductsByCategory() {
 
     let products = data.data.products;
     products = products?.filter((product) => product?.categoryId?._id === id);
-    let categoryName = products[0]?.categoryId?.name;
+    let categoryName = products?products[0]?.categoryId?.name: "";
     console.log(products);
 
     return (

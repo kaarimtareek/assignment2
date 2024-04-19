@@ -50,7 +50,18 @@ a {
     height: 700px;
     padding: 30px 80px;
 }
-
+.dropdown-style{
+    background-color: transparent;
+}
+.hideOverFlow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.onlyOneLine{
+    display: 'flex';
+    flex-direction: 'row'
+}
 .landing-title {
     font-family: "Rufina";
     font-style: normal;

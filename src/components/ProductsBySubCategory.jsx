@@ -29,7 +29,7 @@ export function ProductsBySubCategory() {
     products = products?.filter(
         (product) => product?.subCategoryId?._id === id
     );
-    const subCategoryName = products[0]?.subCategoryId?.name;
+    const subCategoryName = products? products[0]?.subCategoryId?.name:"";
     console.log(products);
 
     return (

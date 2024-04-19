@@ -8,12 +8,13 @@ import { cartContext } from "./CartContext";
 import { wishlistContext } from "./WishlistContext";
 import { API_BASE_URL } from "../config";
 export function Products(props) {
-    const token = localStorage.getItem("tkn");
+    var token = localStorage.getItem("tkn");
     const { addProductToCart } = useContext(cartContext);
     const { addProductToWishlist } = useContext(wishlistContext);
 
     async function addProduct(id) {
         debugger;
+        token = localStorage.getItem("tkn");
         if (!token) {
             toast.error("Please log in to add product to cart");
             return;
@@ -23,7 +24,7 @@ export function Products(props) {
             toast.error("already in cart");
         }
         debugger;
-        if (res.message === "Done") {
+        if (res && res.message && res.message === "Done") {
             toast.success("product was added to cart");
         } else {
             toast.error("error occured");
@@ -85,6 +86,7 @@ export function Products(props) {
                             <div
                                 key={product._id}
                                 className="col-lg-3 col-md-4 col-sm-6"
+                                
                             >
                                 <div
                                     data-discount={product.discount + "% OFF"}
@@ -98,12 +100,15 @@ export function Products(props) {
                                             className="product-image card-img-top img-fluid"
                                             style={{
                                                 maxWidth: "100%",
-                                                height: "auto",
+                                                //height: "auto",
+                                                height: "200px",
                                                 objectFit: "cover",
                                             }}
                                         />
-                                        <div className="card-body ">
-                                            <div className="card-title">
+                                        <div className="card-body "
+                                            style={{height:"150px"}}
+                                            >
+                                            <div className="card-title onlyOneLine" >
                                                 <h5
                                                     className="py-1 text-center text-uppercase text"
                                                     color=""
@@ -117,13 +122,16 @@ export function Products(props) {
                                                         .join(" ")}
                                                 </h5>
                                                 <div
-                                                    className="tags d-flex flex-wrap flex-start"
+                                                    className="tags d-flex flex-wrap flex-start onlyOneLine"
                                                     style={{
                                                         color: "lightgrey",
                                                         fontWeight: 100,
+                                                        width:"100%",
+                                                        display: 'inline-flex',
+                                                        flexDirection: 'row',
                                                     }}
                                                 >
-                                                    <span class="tag badge rounded-pill bg-info">
+                                                    <span class="tag badge rounded-pill bg-info" >
                                                         {
                                                             product?.categoryId
                                                                 ?.name
@@ -140,7 +148,7 @@ export function Products(props) {
                                                         {product?.brandId?.name}
                                                     </span>
                                                 </div>
-                                                <div className="d-flex justify-content-between mt-3">
+                                                <div className="d-flex justify-content-between mt-3 hideOverFlow"  >
                                                     <span
                                                         style={{
                                                             fontWeight: "500",

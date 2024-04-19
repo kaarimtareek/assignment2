@@ -55,7 +55,7 @@ export function NavLogin() {
   // Ensure that data is available before accessing it
   const brands = brandsData?.data?.brand || [];
   const categories = categoriesData?.data?.categories || [];
-  const subCategories = subCategoriesData?.data?.subCategories || [];
+  //const subCategories = subCategoriesData?.data?.subCategories || [];
   function logout() {
     localStorage.removeItem("tkn");
     setToken(null);
@@ -138,19 +138,20 @@ export function NavLogin() {
                   Products
                 </Link>
               </li>
-              <li className="nav-item dropdown">
-                <Link
+              <li className="nav-item" style={{ fontWeight: 500 }}>
+                {/* <Link
                   className="nav-link dropdown-toggle"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
+                /////npm install sass-loader sass webpack --save-dev
                   Categories
-                </Link>
+                </Link> */}
                 <Categories categories={categories} />
               </li>
 
-              <li className="nav-item dropdown">
+              {/* <li className="nav-item dropdown">
                 <Link
                   className="nav-link dropdown-toggle"
                   role="button"
@@ -160,7 +161,7 @@ export function NavLogin() {
                   Sub-Categories
                 </Link>
                 <Subcategories subCategories={subCategories} />
-              </li>
+              </li> */}
               <li className="nav-item dropdown">
                 <Link
                   className="nav-link dropdown-toggle"

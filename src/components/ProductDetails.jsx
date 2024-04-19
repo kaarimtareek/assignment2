@@ -87,8 +87,15 @@ export function ProductDetails() {
             setCounter(counter - 1);
         }
     };
+    return  !data?   (<>
+    <div className="vh-100 d-flex align-items-center justify-content-center">
+        <h2 style={{textAlign:"center"}}>
+            Product Not Found
+        </h2>
 
-    return (
+    </div>
+    </>) :
+     (
         <>
             <div className="container py-5">
                 <div className="row align-items-center">
