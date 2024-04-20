@@ -19,25 +19,33 @@ export function Categories(props) {
     fontStyle:"normal",
     fontSize :"15px",
     fontWeight:"500"
-    }} openOnHover="true" title= "Categories">
+    }} title= "Categories">
 
           {categories?.map(((category) => {
             
           return <>
-            <Dropdown.Item > 
               <Link  role="button" to={`productsByCategory/${category._id}`}>
-               {category?.name}
-              </Link >
-               {category.subCategory?.map((sub)=>{
-                 return <>
-                 <Dropdown.Submenu position="right">
-                <Link role="button" to={`productsBySubCategory/${sub._id}`}>
-                {sub.name}
-                </Link>
-                </Dropdown.Submenu>
+            <Dropdown.Item  > 
+               {category?.name
+               }
+               
+               {  category.subCategory   ?
+               
+                  <Dropdown.Submenu position="right">
+                      {category.subCategory?.map((sub)=>{
+                      return <>
+                        <Link role="button" to={`productsBySubCategory/${sub._id}`}>
+                          <Dropdown.Item>
+                            {sub.name}
+                          </Dropdown.Item>
+                        </Link>
+               
                  </>
                })}
+               </Dropdown.Submenu>
+                 : {}}
             </Dropdown.Item>
+                 </Link >
                </>
           }))}
       </Dropdown>

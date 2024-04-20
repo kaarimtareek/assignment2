@@ -96,6 +96,7 @@ export function Cart() {
         try {
             if (res.message === "Done") {
                 toast.success("product Removed Successfully");
+                window.location.reload();
             } else {
                 toast.error("Error occurred");
             }

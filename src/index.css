@@ -71,7 +71,9 @@ a {
 
     color: #224f34;
 }
-
+.center-backgroundPosition{
+    background-position: center;
+}
 .landing-paragraph {
     font-family: "Poppins";
     font-style: normal;
