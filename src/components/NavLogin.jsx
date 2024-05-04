@@ -177,7 +177,10 @@ export function NavLogin() {
             </ul>
             {token ? (
               <>
-                <ul className="navbar-nav text-secondary">
+                <ul
+                  className="navbar-nav text-secondary"
+                  style={{ display: "flex", gap: "20px" }}
+                >
                   <li className="nav-item position-relative">
                     <Link to={"/wishlist"}>
                       <i className="position-relative fa-solid fa-heart d-inline-block align-text-top text-dark fs-3">
