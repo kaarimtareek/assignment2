@@ -299,7 +299,7 @@ export function ProductDetails() {
                         <Products
                             products={recommendedProducts
                                 .filter((p) => p._id !== id)
-                                .slice(0, 3)}
+                                .slice(0, 4)}
                         />{" "}
                     </div>
                 </div>

@@ -22,33 +22,20 @@ export function Cart() {
         updateCartItemQuantity, // Added function to update item quantity
     } = useContext(cartContext);
 
-    if (cartProducts === null) {
-        return (
-            <div className=" vh-100 d-flex align-items-center justify-content-center">
-                <ColorRing
-                    visible={true}
-                    hight="80"
-                    width="80"
-                    arialLabel="blocks-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="blocks-wrapper"
-                    colors={[
-                        "#e15b64",
-                        "#f47e60",
-                        "#f8b26a",
-                        "#abbd81",
-                        "#849b87",
-                    ]}
-                />
-            </div>
-        );
-    }
-
-    if (cartProducts.length === 0) {
+    if (cartProducts.length === null) {
         return (
             <>
                 <div className="container py-5" style={{ height: "100vh" }}>
                     <Spinner></Spinner>
+                </div>
+            </>
+        );
+    }
+    if (cartProducts.length === 0) {
+        return (
+            <>
+                <div className="container py-5" style={{ height: "100vh" }}>
+                    <h3> Cart is empty</h3>
                 </div>
             </>
         );
