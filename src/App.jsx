@@ -13,6 +13,8 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ProductDetails } from "./components/ProductDetails";
 import { Toaster } from "react-hot-toast";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ScrollToTop } from "./components/ScrollToTop";
 import { CartContextProvider } from "./components/CartContext";
 import { Cart } from "./components/Cart";
 import { WishlistContextProvider } from "./components/WishlistContext";
@@ -71,21 +73,20 @@ export class App extends Component {
     render() {
         let queryClient = new QueryClient();
         return (
-            <>
-                <QueryClientProvider client={queryClient}>
-                            <AuthContextProvider>
+            <QueryClientProvider client={queryClient}>
+                <AuthContextProvider>
                     <CartContextProvider>
                         <WishlistContextProvider>
-                                {/* Wrap the router with RouterProvider */}
-                                <RouterProvider
-                                    router={router}
-                                ></RouterProvider>
+                            <RouterProvider router={router}>
+                                <ScrollToTop>
+                                    {/* Your app's content goes here */}
+                                </ScrollToTop>
+                            </RouterProvider>
                         </WishlistContextProvider>
                     </CartContextProvider>
-                            </AuthContextProvider>
-                    <Toaster />
-                </QueryClientProvider>
-            </>
+                </AuthContextProvider>
+                <Toaster />
+            </QueryClientProvider>
         );
     }
 }

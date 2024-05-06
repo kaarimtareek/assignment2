@@ -12,7 +12,7 @@ export function CartContextProvider({ children }) {
     const [couponName, setCouponName] = useState("");
     const token = localStorage.getItem("tkn");
 
-    async function addProductToCart(productId, qty = 1) {
+    async function addProductToCart(productId, qty = 1, color, size) {
         debugger;
         const productIds = cartProducts.map((p) => p._id);
         if (productIds.includes(productId)) {
