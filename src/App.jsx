@@ -27,66 +27,69 @@ import { Orders } from "./components/Orders";
 import { ProductsPage } from "./components/ProductsPage";
 import { ForgetPassword } from "./components/ForgetPassword";
 import { ResetPassword } from "./components/ResetPassword";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const router = createHashRouter([
-    {
-        path: "",
-        element: <Layout />,
-        children: [
-            { path: "/", element: <Login /> },
-            { path: "login", element: <Login /> },
-            { path: "register", element: <Register /> },
-            // { path: "Home", element: <Home /> },
-            { path: "checkout", element: <CheckOut /> },
-            { path: "cart", element: <Cart /> },
-            { path: "wishlist", element: <Wishlist /> },
-            { path: "productDetailes/:id", element: <ProductDetails /> },
-            { index: true, element: <Home /> },
-            { path: "products", element: <ProductsPage /> },
-            { path: "categories", element: <Categories /> },
-            { path: "brands", element: <Brands /> },
-            { path: "forgot-password", element: <ForgetPassword /> },
-            { path: "reset-password", element: <ResetPassword /> },
-            { path: "subcategories", element: <Subcategories /> },
-            { path: "productsByCategory/:id", element: <ProductsByCategory /> },
-            {
-                path: "productsBySubCategory/:id",
-                element: <ProductsBySubCategory />,
-            },
-            { path: "productsByBrand/:id", element: <ProductsByBrand /> },
-            { path: "orders", element: <Orders /> },
+  {
+    path: "",
+    element: <Layout />,
+    children: [
+      { path: "/", element: <Login /> },
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
+      // { path: "Home", element: <Home /> },
+      { path: "checkout", element: <CheckOut /> },
+      { path: "cart", element: <Cart /> },
+      { path: "wishlist", element: <Wishlist /> },
+      { path: "productDetailes/:id", element: <ProductDetails /> },
+      { index: true, element: <Home /> },
+      { path: "products", element: <ProductsPage /> },
+      { path: "categories", element: <Categories /> },
+      { path: "brands", element: <Brands /> },
+      { path: "forgot-password", element: <ForgetPassword /> },
+      { path: "reset-password", element: <ResetPassword /> },
+      { path: "subcategories", element: <Subcategories /> },
+      { path: "productsByCategory/:id", element: <ProductsByCategory /> },
+      {
+        path: "productsBySubCategory/:id",
+        element: <ProductsBySubCategory />,
+      },
+      { path: "productsByBrand/:id", element: <ProductsByBrand /> },
+      { path: "orders", element: <Orders /> },
 
-            {
-                path: "*",
-                element: (
-                    <h1 className="d-flex vh-100 justify-content-center align-items-center">
-                        Not Found
-                        <br /> Error 404
-                    </h1>
-                ),
-            },
-        ],
-    },
+      {
+        path: "*",
+        element: (
+          <h1 className="d-flex vh-100 justify-content-center align-items-center">
+            Not Found
+            <br /> Error 404
+          </h1>
+        ),
+      },
+    ],
+  },
 ]);
 
 export class App extends Component {
-    render() {
-        let queryClient = new QueryClient();
-        return (
-            <QueryClientProvider client={queryClient}>
-                <AuthContextProvider>
-                    <CartContextProvider>
-                        <WishlistContextProvider>
-                            <RouterProvider router={router}>
-                                <ScrollToTop>
-                                    {/* Your app's content goes here */}
-                                </ScrollToTop>
-                            </RouterProvider>
-                        </WishlistContextProvider>
-                    </CartContextProvider>
-                </AuthContextProvider>
-                <Toaster />
-            </QueryClientProvider>
-        );
-    }
+  render() {
+    let queryClient = new QueryClient();
+    return (
+      <GoogleOAuthProvider clientId="49257914113-2k9uvh7srjul3ivvt3nftjgpkserrukt.apps.googleusercontent.com">
+        <QueryClientProvider client={queryClient}>
+          <AuthContextProvider>
+            <CartContextProvider>
+              <WishlistContextProvider>
+                <RouterProvider router={router}>
+                  <ScrollToTop>
+                    {/* Your app's content goes here */}
+                  </ScrollToTop>
+                </RouterProvider>
+              </WishlistContextProvider>
+            </CartContextProvider>
+          </AuthContextProvider>
+          <Toaster />
+        </QueryClientProvider>
+      </GoogleOAuthProvider>
+    );
+  }
 }
