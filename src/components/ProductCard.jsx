@@ -1,13 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 import axios from "axios";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { nanoid } from "nanoid";
 import { cartContext } from "./CartContext";
 import { wishlistContext } from "./WishlistContext";
 import { API_BASE_URL } from "../config";
 
 export function ProductCard({ product, addProduct, wishProduct }) {
+    const navigate = useNavigate();
     const renderProductPrice = (product) => {
         if (product.discount) {
             return (
@@ -48,7 +50,10 @@ export function ProductCard({ product, addProduct, wishProduct }) {
                 data-discount={product.discount + "% OFF"}
                 className="product-card card mx-3"
             >
-                <Link to={`/productDetailes/${product._id}`}>
+                <Link
+                    // to={`/productDetailes/${product._id}`}
+                    onClick={(e) => navigate(`/productDetailes/${product._id}`)}
+                >
                     <img
                         src={product.mainImage.secure_url}
                         className="product-image card-img-top img-fluid"
