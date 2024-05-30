@@ -39,10 +39,29 @@ export const Orders = () => {
 
   const handleCancelOrder = async (orderId) => {
     try {
-      toast.success("Order has been canceled successfully");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      const token = localStorage.getItem("tkn");
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+
+      const config = {
+        method: "patch",
+        url: `${API_BASE_URL}/order/${orderId}/canceled`,
+        headers,
+      };
+
+      const response = await axios(config);
+      if (response && response.status === 200) {
+        toast.success("Order has been canceled successfully");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else if (response && response.status === 400) {
+        if (response?.data?.globalMessage) {
+          toast.error(response.data?.globalMessage);
+        }
+      }
     } catch (e) {
       toast.error("error occurred");
     }
